@@ -4,8 +4,15 @@ import { GetPeopleResponse, People } from "./types/people";
 import Crew from "./components/crew";
 import Passenger from "./components/passengers";
 import { Button, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 axios.defaults.baseURL = "https://swapi.dev/api/";
+
+export const enum Position {
+	crew = "crew",
+	passenger = "passenger",
+}
 
 function App() {
 	const [search, setSearch] = useState<string>("");
@@ -14,16 +21,12 @@ function App() {
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [maxCrew, setMaxCrew] = useState<number>(0);
 	const [passengerCapacity, setPassengerCapacity] = useState<number>(0);
+	const notify = () => toast("Wow so easy!");
 
 	const starshipID = 10;
 
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== passengerCapacity;
-
-	const enum Position {
-		crew = "crew",
-		passenger = "passenger",
-	}
 
 	useEffect(() => {
 		axios
@@ -98,6 +101,8 @@ function App() {
 
 	return (
 		<div className="App">
+			<button onClick={notify}>Notify!</button>
+			<ToastContainer autoClose={3000} />
 			<Container>
 				<Row mt={10}>
 					<InputGroup className="mb-3">
@@ -146,10 +151,10 @@ function App() {
 
 				<Crew crew={crew} removeFromStarship={removeFromStarship} />
 
-				<Passenger
+				{/* <Passenger
 					passengers={passengers}
 					removeFromStarship={removeFromStarship}
-				/>
+				/> */}
 			</Container>
 		</div>
 	);

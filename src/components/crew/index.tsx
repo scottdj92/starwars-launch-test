@@ -2,10 +2,11 @@ import React from "react";
 import { People } from "../../types/people";
 import Character from "../character";
 import { Col, Row } from "react-bootstrap";
+import { Position } from "../../App";
 
 type CrewProps = {
 	crew: People[];
-	removeFromStarship: (character: People) => void;
+	removeFromStarship: (character: People, position: Position) => void;
 };
 
 const Crew = ({ crew, removeFromStarship }: CrewProps) => {
@@ -16,7 +17,9 @@ const Crew = ({ crew, removeFromStarship }: CrewProps) => {
 					<Col xs={6} md={4} lg={3} key={character.name}>
 						<Character
 							character={character}
-							remove={removeFromStarship}
+							remove={() =>
+								removeFromStarship(character, Position.crew)
+							}
 						/>
 					</Col>
 				))

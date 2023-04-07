@@ -1,10 +1,16 @@
 import { Button, Card } from "react-bootstrap";
 import { People } from "../../types/people";
 
+const enum Position {
+	crew = "crew",
+	passenger = "passenger",
+}
+
 type CharacterProps = {
 	character: People;
-	remove: (character: People) => void;
+	remove: () => void;
 };
+
 const Character = ({ character, remove }: CharacterProps) => {
 	const characterId = character.url
 		.replaceAll("https://swapi.dev/api/people/", "")
@@ -27,7 +33,7 @@ const Character = ({ character, remove }: CharacterProps) => {
 				<Button
 					variant="danger"
 					onClick={() => {
-						remove(character);
+						remove();
 					}}
 				>
 					Remove from starship
