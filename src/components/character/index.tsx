@@ -1,44 +1,39 @@
-import { CloseButton } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { People } from "../../types/people";
 
 type CharacterProps = {
 	character: People;
-	removeFromStarship: (character: People) => void;
+	remove: (character: People) => void;
 };
-const Character = ({ character, removeFromStarship }: CharacterProps) => {
+const Character = ({ character, remove }: CharacterProps) => {
 	const characterId = character.url
 		.replaceAll("https://swapi.dev/api/people/", "")
 		.slice(0, -1);
 
 	return (
-		<ul className="character" key={character.name}>
-			<li>
-				Name: <strong>{character.name}</strong>
-			</li>
-			<li>
-				<img
-					src={`/img/${characterId}.jpg`}
-					alt={character.name}
-					style={{
-						width: "100px",
-						height: "100px",
-					}}
-				/>
-			</li>
-			<li>
-				Gender: <strong>{character.gender}</strong>
-			</li>
-			<li>
-				Birth Year: <strong>{character.birth_year}</strong>
-			</li>
-			<li>
-				<CloseButton
+		<Card>
+			<Card.Img
+				variant="top"
+				src={`/img/${characterId}.jpg`}
+				style={{ aspectRatio: 1, objectFit: "cover" }}
+			/>
+			<Card.Body>
+				<Card.Title>{character.name}</Card.Title>
+				<Card.Text>
+					Gender: <strong>{character.gender}</strong>
+					<br />
+					Birth Year: <strong>{character.birth_year}</strong>
+				</Card.Text>
+				<Button
+					variant="danger"
 					onClick={() => {
-						removeFromStarship(character);
+						remove(character);
 					}}
-				/>
-			</li>
-		</ul>
+				>
+					Remove from starship
+				</Button>
+			</Card.Body>
+		</Card>
 	);
 };
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import { GetPeopleResponse, People } from "./types/people";
 import Crew from "./components/crew";
 import Passenger from "./components/passengers";
+import { Button, Container, Form, InputGroup, Row } from "react-bootstrap";
 
 axios.defaults.baseURL = "https://swapi.dev/api/";
 
@@ -74,14 +75,19 @@ function App() {
 		}
 	};
 
-	const removeFromStarship = (character: People) => {
-		const newCrew = crew.filter((crew) => crew.name !== character.name);
-		setCrew(newCrew);
-
-		const newPassengers = passengers.filter(
-			(passenger) => passenger.name !== character.name
-		);
-		setCrew(newPassengers);
+	const removeFromStarship = (
+		character: People,
+		position: Position = Position.passenger
+	) => {
+		if (position === Position.passenger) {
+			const newPassengers = passengers.filter(
+				(passenger) => passenger.name !== character.name
+			);
+			setPassengers(newPassengers);
+		} else {
+			const newCrew = crew.filter((crew) => crew.name !== character.name);
+			setCrew(newCrew);
+		}
 	};
 
 	const launchStarship = () => {
@@ -92,40 +98,59 @@ function App() {
 
 	return (
 		<div className="App">
-			<label htmlFor="search">helloworld</label>
-			<input
-				type="search"
-				name="search"
-				id="search"
-				onChange={(e) => setSearch(e.target.value)}
-			/>
-			<button onClick={searchPeople}>search people</button>
-			{data && data.count > 0 ? (
-				data.results.map((item) => (
-					<div key={item.name}>
-						{item.name}
-						<button
-							onClick={() => addToStarship(item, Position.crew)}
+			<Container>
+				<Row mt={10}>
+					<InputGroup className="mb-3">
+						<Form.Control
+							placeholder="Search character's"
+							aria-label="Search character"
+							aria-describedby="search-starwars-character"
+							onChange={(e) => setSearch(e.target.value)}
+						/>
+						<Button
+							variant="outline-secondary"
+							id="button-addon2"
+							onClick={searchPeople}
 						>
-							Add to starship as crew
-						</button>
-						<button onClick={() => addToStarship(item)}>
-							Add to starship as passenger
-						</button>
-					</div>
-				))
-			) : (
-				<p>Not found</p>
-			)}
-			<button disabled={isLaunchDisabled} onClick={launchStarship}>
-				Launch starship
-			</button>
+							Search
+						</Button>
+					</InputGroup>
+				</Row>
 
-			<Crew crew={crew} removeFromStarship={removeFromStarship} />
-			<Passenger
-				passengers={passengers}
-				removeFromStarship={removeFromStarship}
-			/>
+				{data && data.count > 0 ? (
+					data.results.map((item) => (
+						<div key={item.name}>
+							{item.name}
+							<Button
+								variant="primary"
+								onClick={() =>
+									addToStarship(item, Position.crew)
+								}
+							>
+								Add to starship as crew
+							</Button>
+							<Button
+								variant="secondary"
+								onClick={() => addToStarship(item)}
+							>
+								Add to starship as passenger
+							</Button>
+						</div>
+					))
+				) : (
+					<p>Not found</p>
+				)}
+				<Button disabled={isLaunchDisabled} onClick={launchStarship}>
+					Launch starship
+				</Button>
+
+				<Crew crew={crew} removeFromStarship={removeFromStarship} />
+
+				<Passenger
+					passengers={passengers}
+					removeFromStarship={removeFromStarship}
+				/>
+			</Container>
 		</div>
 	);
 }

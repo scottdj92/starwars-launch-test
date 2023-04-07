@@ -1,6 +1,7 @@
 import React from "react";
 import { People } from "../../types/people";
 import Character from "../character";
+import { Col, Row } from "react-bootstrap";
 
 type PassengerProps = {
 	passengers: People[];
@@ -9,18 +10,21 @@ type PassengerProps = {
 
 const Passenger = ({ passengers, removeFromStarship }: PassengerProps) => {
 	return (
-		<div id="passenger" style={{ border: "1px solid blue" }}>
+		<Row style={{ border: "1px solid blue" }}>
 			{passengers && passengers.length > 0 ? (
 				passengers.map((character) => (
-					<Character
-						character={character}
-						removeFromStarship={removeFromStarship}
-					/>
+					<Col xs={6} md={4} lg={3}>
+						<Character
+							key={character.name}
+							character={character}
+							remove={removeFromStarship}
+						/>
+					</Col>
 				))
 			) : (
 				<p>No passengers are in the starship</p>
 			)}
-		</div>
+		</Row>
 	);
 };
 
