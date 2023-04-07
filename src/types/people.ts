@@ -23,3 +23,8 @@ export interface People {
 	edited: string;
 	url: string;
 }
+
+export const enum Position {
+	crew = "crew",
+	passenger = "passenger",
+}

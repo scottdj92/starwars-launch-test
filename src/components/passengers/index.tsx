@@ -1,8 +1,6 @@
-import React from "react";
-import { People } from "../../types/people";
+import { People, Position } from "../../types/people";
 import Character from "../character";
 import { Col, Row } from "react-bootstrap";
-import { Position } from "../../App";
 
 type PassengerProps = {
 	passengers: People[];

@@ -21,18 +21,20 @@ const Character = ({ character, remove }: CharacterProps) => {
 			<Card.Body>
 				<Card.Title>{character.name}</Card.Title>
 				<Card.Text>
-					Gender: <strong>{character.gender}</strong>
+					<strong>Gender:</strong> {character.gender}
 					<br />
-					Birth Year: <strong>{character.birth_year}</strong>
+					<strong>Birth Year:</strong> {character.birth_year}
 				</Card.Text>
-				<Button
-					variant="danger"
-					onClick={() => {
-						remove();
-					}}
-				>
-					Remove from starship
-				</Button>
+				<div className="d-grid gap-2">
+					<Button
+						variant="danger"
+						onClick={() => {
+							remove();
+						}}
+					>
+						Remove
+					</Button>
+				</div>
 			</Card.Body>
 		</Card>
 	);

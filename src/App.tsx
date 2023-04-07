@@ -1,48 +1,37 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { GetPeopleResponse, People } from "./types/people";
+import { GetPeopleResponse, People, Position } from "./types/people";
 import Crew from "./components/crew";
 import Passenger from "./components/passengers";
 import { Button, Container, Form, InputGroup, Row } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-axios.defaults.baseURL = "https://swapi.dev/api/";
-
-export const enum Position {
-	crew = "crew",
-	passenger = "passenger",
-}
+import { toast } from "react-toastify";
+import { STARSHIP_ID } from "./constants";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
 	const [data, setData] = useState<GetPeopleResponse>();
 	const [crew, setCrew] = useState<People[]>([]);
 	const [passengers, setPassengers] = useState<People[]>([]);
-	const [maxCrew, setMaxCrew] = useState<number>(0);
-	const [passengerCapacity, setPassengerCapacity] = useState<number>(0);
-	const notify = () => toast("Wow so easy!");
-
-	const starshipID = 10;
-
+	const [maxCrew, setMaxCrew] = useState<number>(4);
+	const [maxPassengerCap, setMaxPassengerCap] = useState<number>(6);
 	const isLaunchDisabled =
-		crew.length !== maxCrew || passengers.length !== passengerCapacity;
+		crew.length !== maxCrew || passengers.length !== maxPassengerCap;
 
 	useEffect(() => {
 		axios
-			.get(`/starships/${starshipID}`)
+			.get(`/starships/${STARSHIP_ID}`)
 			.then((res) => {
 				setMaxCrew(Number(res.data.crew));
-				setPassengerCapacity(Number(res.data.passengers));
+				setMaxPassengerCap(Number(res.data.passengers));
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	}, []);
 
-	const searchPeople = () => {
+	const searchPeople = (searchText: string) => {
 		axios
-			.get(`/people/?search=${search}`)
+			.get(`/people/?search=${searchText}`)
 			.then((res) => {
 				setData(res.data);
 			})
@@ -64,7 +53,7 @@ function App() {
 		}
 
 		if (position === Position.passenger) {
-			if (passengers.length >= passengerCapacity) {
+			if (passengers.length >= maxPassengerCap) {
 				toast.warning("Max passengers reached");
 				return;
 			}
@@ -101,16 +90,6 @@ function App() {
 
 	return (
 		<div className="App">
-			<ToastContainer
-				autoClose={2000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss={false}
-			/>
-			<button onClick={notify}>Notify!</button>
-
 			<Container>
 				<Row mt={10}>
 					<InputGroup className="mb-3">
@@ -123,7 +102,7 @@ function App() {
 						<Button
 							variant="outline-secondary"
 							id="button-addon2"
-							onClick={searchPeople}
+							onClick={() => searchPeople(search)}
 						>
 							Search
 						</Button>
