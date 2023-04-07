@@ -6,6 +6,7 @@ import Passenger from "./components/passengers";
 import { Button, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { STARSHIP_ID } from "./constants";
+import SearchCharacterModal from "./components/addCharacterModal";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
@@ -16,6 +17,7 @@ function App() {
 	const [maxPassengerCap, setMaxPassengerCap] = useState<number>(6);
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengerCap;
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		axios
@@ -34,6 +36,7 @@ function App() {
 			.get(`/people/?search=${searchText}`)
 			.then((res) => {
 				setData(res.data);
+				setShowModal(true);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -90,6 +93,12 @@ function App() {
 
 	return (
 		<div className="App">
+			<SearchCharacterModal
+				showModal={showModal}
+				setShowModal={setShowModal}
+				data={data}
+				addToStarship={addToStarship}
+			/>
 			<Container>
 				<Row mt={10}>
 					<InputGroup className="mb-3">
@@ -109,29 +118,6 @@ function App() {
 					</InputGroup>
 				</Row>
 
-				{data && data.count > 0 ? (
-					data.results.map((item) => (
-						<div key={item.name}>
-							{item.name}
-							<Button
-								variant="primary"
-								onClick={() =>
-									addToStarship(item, Position.crew)
-								}
-							>
-								Add to starship as crew
-							</Button>
-							<Button
-								variant="secondary"
-								onClick={() => addToStarship(item)}
-							>
-								Add to starship as passenger
-							</Button>
-						</div>
-					))
-				) : (
-					<p>Not found</p>
-				)}
 				<Button disabled={isLaunchDisabled} onClick={launchStarship}>
 					Launch starship
 				</Button>
