@@ -59,19 +59,19 @@ function App() {
 			crew.find((crew) => crew.name === character.name) ||
 			passengers.find((passenger) => passenger.name === character.name)
 		) {
-			alert("Already added");
+			toast.warning("Already added");
 			return;
 		}
 
 		if (position === Position.passenger) {
 			if (passengers.length >= passengerCapacity) {
-				alert("Max passengers reached");
+				toast.warning("Max passengers reached");
 				return;
 			}
 			setPassengers([...passengers, character]);
 		} else {
 			if (crew.length >= maxCrew) {
-				alert("Max crew reached");
+				toast.warning("Max crew reached");
 				return;
 			}
 			setCrew([...crew, character]);
@@ -94,15 +94,23 @@ function App() {
 	};
 
 	const launchStarship = () => {
-		alert("Starship has been launched!");
+		toast.success("Starship has been launched!");
 		setCrew([]);
 		setPassengers([]);
 	};
 
 	return (
 		<div className="App">
+			<ToastContainer
+				autoClose={2000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss={false}
+			/>
 			<button onClick={notify}>Notify!</button>
-			<ToastContainer autoClose={3000} />
+
 			<Container>
 				<Row mt={10}>
 					<InputGroup className="mb-3">
@@ -151,10 +159,10 @@ function App() {
 
 				<Crew crew={crew} removeFromStarship={removeFromStarship} />
 
-				{/* <Passenger
+				<Passenger
 					passengers={passengers}
 					removeFromStarship={removeFromStarship}
-				/> */}
+				/>
 			</Container>
 		</div>
 	);

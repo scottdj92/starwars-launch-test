@@ -1,11 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 import { People } from "../../types/people";
 
-const enum Position {
-	crew = "crew",
-	passenger = "passenger",
-}
-
 type CharacterProps = {
 	character: People;
 	remove: () => void;
