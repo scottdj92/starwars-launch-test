@@ -1,5 +1,5 @@
 import { People, Position } from "../../types/people";
-import Character from "../character";
+import Character from "../character-card";
 import { Col, Row } from "react-bootstrap";
 
 type PassengerProps = {
