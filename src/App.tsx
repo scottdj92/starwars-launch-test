@@ -3,10 +3,11 @@ import axios from "axios";
 import { GetPeopleResponse, People, Position } from "./types/people";
 import Crew from "./components/crew";
 import Passenger from "./components/passengers";
-import { Button, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { STARSHIP_ID } from "./constants";
-import SearchCharacterModal from "./components/addCharacterModal";
+import SearchCharacterModal from "./components/add-character-modal";
+import NavbarMenu from "./components/navbar-menu";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
@@ -15,9 +16,9 @@ function App() {
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [maxCrew, setMaxCrew] = useState<number>(4);
 	const [maxPassengerCap, setMaxPassengerCap] = useState<number>(6);
+	const [showModal, setShowModal] = useState(false);
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengerCap;
-	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		axios
@@ -93,6 +94,13 @@ function App() {
 
 	return (
 		<div className="App">
+			<NavbarMenu
+				searchPeople={searchPeople}
+				setSearch={setSearch}
+				search={search}
+				launchStarship={launchStarship}
+				isLaunchDisabled={isLaunchDisabled}
+			/>
 			<SearchCharacterModal
 				showModal={showModal}
 				setShowModal={setShowModal}
@@ -100,28 +108,6 @@ function App() {
 				addToStarship={addToStarship}
 			/>
 			<Container>
-				<Row mt={10}>
-					<InputGroup className="mb-3">
-						<Form.Control
-							placeholder="Search character's"
-							aria-label="Search character"
-							aria-describedby="search-starwars-character"
-							onChange={(e) => setSearch(e.target.value)}
-						/>
-						<Button
-							variant="outline-secondary"
-							id="button-addon2"
-							onClick={() => searchPeople(search)}
-						>
-							Search
-						</Button>
-					</InputGroup>
-				</Row>
-
-				<Button disabled={isLaunchDisabled} onClick={launchStarship}>
-					Launch starship
-				</Button>
-
 				<Crew crew={crew} removeFromStarship={removeFromStarship} />
 
 				<Passenger
