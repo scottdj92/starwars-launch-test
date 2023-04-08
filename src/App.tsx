@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { People, Position } from "./types/people";
 import CharacterList from "./components/CharacterList";
 import { Container } from "react-bootstrap";
@@ -14,22 +14,15 @@ function App() {
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [showModal, setShowModal] = useState(false);
 	const { maxCrew, maxPassengers } = useGetStarship();
-	const [shouldFetch, setShouldFetch] = useState(false);
 
-	const { peopleData } = useGetPeople(search, shouldFetch);
+	const { peopleData, enableSearch } = useGetPeople(search);
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengers;
 
 	const searchPeople = () => {
 		setShowModal(true);
-		setShouldFetch(true);
+		enableSearch();
 	};
-
-	useEffect(() => {
-		setTimeout(() => {
-			setShouldFetch(false);
-		}, 500);
-	}, [search]);
 
 	const addToStarship = (
 		character: People,
@@ -84,7 +77,6 @@ function App() {
 			<NavbarMenu
 				searchPeople={searchPeople}
 				setSearch={setSearch}
-				search={search}
 				launchStarship={launchStarship}
 				isLaunchDisabled={isLaunchDisabled}
 				totalCrewMembers={crew.length}
