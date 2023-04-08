@@ -1,14 +1,13 @@
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useGetStarship } from "../../hooks/useGetStarship";
+import SearchCharacter from "../SearchCharacter";
 
 type Props = {
-	searchPeople: (searchText: string) => void;
+	searchPeople: () => void;
 	setSearch: (searchText: string) => void;
-	search: string;
 	launchStarship: () => void;
 	isLaunchDisabled: boolean;
 	totalCrewMembers: number;
@@ -18,7 +17,6 @@ type Props = {
 const NavbarMenu = ({
 	searchPeople,
 	setSearch,
-	search,
 	launchStarship,
 	isLaunchDisabled,
 	totalCrewMembers,
@@ -50,23 +48,10 @@ const NavbarMenu = ({
 							Launch starship
 						</Button>
 					</Nav>
-
-					<Form className="d-flex">
-						<Form.Control
-							type="search"
-							className="me-2"
-							aria-label="Search"
-							placeholder="Search character"
-							aria-describedby="search-starwars-character"
-							onChange={(e) => setSearch(e.target.value)}
-						/>
-						<Button
-							variant="outline-success"
-							onClick={() => searchPeople(search)}
-						>
-							Search
-						</Button>
-					</Form>
+					<SearchCharacter
+						searchPeople={searchPeople}
+						setSearch={setSearch}
+					/>
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
