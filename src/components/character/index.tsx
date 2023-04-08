@@ -1,23 +1,35 @@
 import { Button, Card } from "react-bootstrap";
-import { People } from "../../types/people";
+import { People, Position } from "../../types/people";
 
 type CharacterProps = {
 	character: People;
 	remove: () => void;
+	position: Position;
 };
 
-const Character = ({ character, remove }: CharacterProps) => {
+const Character = ({ character, remove, position }: CharacterProps) => {
 	const characterId = character.url
 		.replaceAll("https://swapi.dev/api/people/", "")
 		.slice(0, -1);
 
 	return (
-		<Card>
+		<Card style={{ marginBottom: 10 }}>
 			<Card.Img
 				variant="top"
 				src={`/img/${characterId}.jpg`}
 				style={{ aspectRatio: 1, objectFit: "cover" }}
-			/>
+			></Card.Img>
+			<span
+				style={{
+					fontSize: "0.75rem",
+					backgroundColor:
+						position === Position.crew ? "green" : "blue",
+					color: "white",
+					padding: "0.25rem 0.5rem",
+				}}
+			>
+				{position}
+			</span>
 			<Card.Body>
 				<Card.Title>{character.name}</Card.Title>
 				<Card.Text>

@@ -10,7 +10,7 @@ type CrewProps = {
 
 const Crew = ({ crew, removeFromStarship }: CrewProps) => {
 	return (
-		<Row style={{ border: "1px solid red" }}>
+		<Row>
 			{crew && crew.length > 0 ? (
 				crew.map((character) => (
 					<Col xs={6} md={4} lg={3} key={character.name}>
@@ -19,6 +19,7 @@ const Crew = ({ crew, removeFromStarship }: CrewProps) => {
 							remove={() =>
 								removeFromStarship(character, Position.crew)
 							}
+							position={Position.crew}
 						/>
 					</Col>
 				))

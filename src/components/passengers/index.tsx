@@ -9,7 +9,7 @@ type PassengerProps = {
 
 const Passenger = ({ passengers, removeFromStarship }: PassengerProps) => {
 	return (
-		<Row style={{ border: "1px solid blue" }}>
+		<Row>
 			{passengers && passengers.length > 0 ? (
 				passengers.map((character) => (
 					<Col xs={6} md={4} lg={3}>
@@ -22,6 +22,7 @@ const Passenger = ({ passengers, removeFromStarship }: PassengerProps) => {
 									Position.passenger
 								)
 							}
+							position={Position.passenger}
 						/>
 					</Col>
 				))
