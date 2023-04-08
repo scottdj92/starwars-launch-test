@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { People, Position } from "./types/people";
 import Crew from "./components/Crew";
 import Passenger from "./components/Passengers";
@@ -15,13 +15,22 @@ function App() {
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [showModal, setShowModal] = useState(false);
 	const { maxCrew, maxPassengers } = useGetStarship();
-	const { peopleData } = useGetPeople(search);
+	const [shouldFetch, setShouldFetch] = useState(false);
+
+	const { peopleData } = useGetPeople(search, shouldFetch);
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengers;
 
 	const searchPeople = () => {
 		setShowModal(true);
+		setShouldFetch(true);
 	};
+
+	useEffect(() => {
+		setTimeout(() => {
+			setShouldFetch(false);
+		}, 500);
+	}, [search]);
 
 	const addToStarship = (
 		character: People,
