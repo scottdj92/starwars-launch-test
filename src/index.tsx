@@ -20,7 +20,7 @@ root.render(
 			closeOnClick
 			rtl={false}
 			pauseOnFocusLoss={false}
-			position="bottom-center"
+			position="top-center"
 		/>
 		<App />
 	</React.StrictMode>
