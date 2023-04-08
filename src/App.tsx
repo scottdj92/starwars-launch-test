@@ -15,13 +15,12 @@ function App() {
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [showModal, setShowModal] = useState(false);
 	const { maxCrew, maxPassengers } = useGetStarship();
-	const { peopleData, mutate } = useGetPeople(search);
+	const { peopleData } = useGetPeople(search);
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengers;
 
 	const searchPeople = () => {
 		setShowModal(true);
-		mutate();
 	};
 
 	const addToStarship = (
