@@ -1,6 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
-import { GetPeopleResponse, People, Position } from "./types/people";
+import { People, Position } from "./types/people";
 import Crew from "./components/Crew";
 import Passenger from "./components/Passengers";
 import { Container } from "react-bootstrap";
@@ -8,28 +7,21 @@ import { toast } from "react-toastify";
 import SearchCharacterModal from "./components/AddCharacterModal";
 import NavbarMenu from "./components/Navbar";
 import { useGetStarship } from "./hooks/useGetStarship";
+import { useGetPeople } from "./hooks/useGetPeople";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
-	const [data, setData] = useState<GetPeopleResponse>();
 	const [crew, setCrew] = useState<People[]>([]);
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [showModal, setShowModal] = useState(false);
 	const { maxCrew, maxPassengers } = useGetStarship();
-
+	const { peopleData, mutate } = useGetPeople(search);
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengers;
 
-	const searchPeople = (searchText: string) => {
-		axios
-			.get(`/people/?search=${searchText}`)
-			.then((res) => {
-				setData(res.data);
-				setShowModal(true);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+	const searchPeople = () => {
+		setShowModal(true);
+		mutate();
 	};
 
 	const addToStarship = (
@@ -94,7 +86,7 @@ function App() {
 			<SearchCharacterModal
 				showModal={showModal}
 				setShowModal={setShowModal}
-				data={data}
+				data={peopleData}
 				addToStarship={addToStarship}
 			/>
 			<Container>
