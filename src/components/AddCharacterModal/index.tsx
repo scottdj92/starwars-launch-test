@@ -1,20 +1,19 @@
-import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { GetPeopleResponse, People, Position } from "../../types/people";
 
-type Props = {
+type AddCharacterModalProps = {
 	showModal: boolean;
 	setShowModal: (showModal: boolean) => void;
 	data: GetPeopleResponse | undefined;
 	addToStarship: (character: People, position: Position) => void;
 };
 
-const SearchCharacterModal = ({
+const AddCharacterModal = ({
 	showModal,
 	setShowModal,
 	data,
 	addToStarship,
-}: Props) => {
+}: AddCharacterModalProps) => {
 	return (
 		<Modal
 			show={showModal}
@@ -31,17 +30,13 @@ const SearchCharacterModal = ({
 							{item.name}
 							<Button
 								variant="primary"
-								onClick={() =>
-									addToStarship(item, Position.crew)
-								}
+								onClick={() => addToStarship(item, Position.crew)}
 							>
 								Add as crew
 							</Button>
 							<Button
 								variant="secondary"
-								onClick={() =>
-									addToStarship(item, Position.passenger)
-								}
+								onClick={() => addToStarship(item, Position.passenger)}
 							>
 								Add as passenger
 							</Button>
@@ -55,4 +50,4 @@ const SearchCharacterModal = ({
 	);
 };
 
-export default SearchCharacterModal;
+export default AddCharacterModal;

@@ -3,7 +3,7 @@ import { People, Position } from "./types/people";
 import CharacterList from "./components/CharacterList";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import SearchCharacterModal from "./components/AddCharacterModal";
+import AddCharacterModal from "./components/AddCharacterModal";
 import NavbarMenu from "./components/Navbar";
 import { useGetStarship } from "./hooks/useGetStarship";
 import { useGetPeople } from "./hooks/useGetPeople";
@@ -90,7 +90,7 @@ function App() {
 				totalCrewMembers={crew.length}
 				totalPassengers={passengers.length}
 			/>
-			<SearchCharacterModal
+			<AddCharacterModal
 				showModal={showModal}
 				setShowModal={setShowModal}
 				data={peopleData}
