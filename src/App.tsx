@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { People, Position } from "./types/people";
-import Crew from "./components/Crew";
-import Passenger from "./components/Passengers";
+import CharacterList from "./components/CharacterList";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
 import SearchCharacterModal from "./components/AddCharacterModal";
@@ -98,11 +97,16 @@ function App() {
 				addToStarship={addToStarship}
 			/>
 			<Container>
-				<Crew crew={crew} removeFromStarship={removeFromStarship} />
-
-				<Passenger
-					passengers={passengers}
+				<CharacterList
+					data={crew}
 					removeFromStarship={removeFromStarship}
+					position={Position.crew}
+				/>
+
+				<CharacterList
+					data={passengers}
+					removeFromStarship={removeFromStarship}
+					position={Position.passenger}
 				/>
 			</Container>
 		</div>

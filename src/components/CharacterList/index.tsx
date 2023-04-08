@@ -1,33 +1,37 @@
-import React from "react";
 import { People, Position } from "../../types/people";
 import Character from "../CharacterCard";
 import { Col, Row } from "react-bootstrap";
 
-type CrewProps = {
-	crew: People[];
+type CharacterListProps = {
+	data: People[];
 	removeFromStarship: (character: People, position: Position) => void;
+	position: Position;
 };
 
-const Crew = ({ crew, removeFromStarship }: CrewProps) => {
+const CharacterList = ({
+	data,
+	removeFromStarship,
+	position,
+}: CharacterListProps) => {
 	return (
 		<Row>
-			{crew && crew.length > 0 ? (
-				crew.map((character) => (
+			{data && data.length > 0 ? (
+				data.map((character) => (
 					<Col xs={6} md={4} lg={3} key={character.name}>
 						<Character
 							character={character}
 							remove={() =>
-								removeFromStarship(character, Position.crew)
+								removeFromStarship(character, position)
 							}
-							position={Position.crew}
+							position={position}
 						/>
 					</Col>
 				))
 			) : (
-				<p>No crew are in the starship</p>
+				<p>No {position} in the starship</p>
 			)}
 		</Row>
 	);
 };
 
-export default Crew;
+export default CharacterList;

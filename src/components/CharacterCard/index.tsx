@@ -7,7 +7,7 @@ type CharacterProps = {
 	position: Position;
 };
 
-const Character = ({ character, remove, position }: CharacterProps) => {
+const CharacterCard = ({ character, remove, position }: CharacterProps) => {
 	const characterId = character.url
 		.replaceAll("https://swapi.dev/api/people/", "")
 		.slice(0, -1);
@@ -38,12 +38,7 @@ const Character = ({ character, remove, position }: CharacterProps) => {
 					<strong>Birth Year:</strong> {character.birth_year}
 				</Card.Text>
 				<div className="d-grid gap-2">
-					<Button
-						variant="danger"
-						onClick={() => {
-							remove();
-						}}
-					>
+					<Button variant="danger" onClick={remove}>
 						Remove
 					</Button>
 				</div>
@@ -52,4 +47,4 @@ const Character = ({ character, remove, position }: CharacterProps) => {
 	);
 };
 
-export default Character;
+export default CharacterCard;
