@@ -81,7 +81,6 @@ function App() {
 				totalCrewMembers={crew.length}
 				totalPassengers={passengers.length}
 			/>
-			{JSON.stringify(peopleData, null, 2)}
 			<AddCharacterModal
 				showModal={showModal}
 				setShowModal={setShowModal}
