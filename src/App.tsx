@@ -15,17 +15,17 @@ function App() {
 	const [crew, setCrew] = useState<People[]>([]);
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [maxCrew, setMaxCrew] = useState<number>(4);
-	const [maxPassengerCap, setMaxPassengerCap] = useState<number>(6);
+	const [maxPassengers, setMaxPassengers] = useState<number>(6);
 	const [showModal, setShowModal] = useState(false);
 	const isLaunchDisabled =
-		crew.length !== maxCrew || passengers.length !== maxPassengerCap;
+		crew.length !== maxCrew || passengers.length !== maxPassengers;
 
 	useEffect(() => {
 		axios
 			.get(`/starships/${STARSHIP_ID}`)
 			.then((res) => {
 				setMaxCrew(Number(res.data.crew));
-				setMaxPassengerCap(Number(res.data.passengers));
+				setMaxPassengers(Number(res.data.passengers));
 			})
 			.catch((err) => {
 				console.log(err);
@@ -57,7 +57,7 @@ function App() {
 		}
 
 		if (position === Position.passenger) {
-			if (passengers.length >= maxPassengerCap) {
+			if (passengers.length >= maxPassengers) {
 				toast.warning("Max passengers reached");
 				return;
 			}
@@ -100,6 +100,10 @@ function App() {
 				search={search}
 				launchStarship={launchStarship}
 				isLaunchDisabled={isLaunchDisabled}
+				maxPassengers={maxPassengers}
+				maxCrew={maxCrew}
+				totalCrewMembers={crew.length}
+				totalPassengers={passengers.length}
 			/>
 			<SearchCharacterModal
 				showModal={showModal}

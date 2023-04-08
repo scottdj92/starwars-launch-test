@@ -10,6 +10,10 @@ type Props = {
 	search: string;
 	launchStarship: () => void;
 	isLaunchDisabled: boolean;
+	maxCrew: number;
+	maxPassengers: number;
+	totalCrewMembers: number;
+	totalPassengers: number;
 };
 
 const NavbarMenu = ({
@@ -18,6 +22,10 @@ const NavbarMenu = ({
 	search,
 	launchStarship,
 	isLaunchDisabled,
+	maxCrew,
+	maxPassengers,
+	totalCrewMembers,
+	totalPassengers,
 }: Props) => {
 	return (
 		<Navbar bg="light" expand="lg" style={{ marginBottom: 30 }}>
@@ -31,10 +39,10 @@ const NavbarMenu = ({
 						navbarScroll
 					>
 						<Nav.Link href="#" disabled>
-							Crew 0/6
+							Crew {totalCrewMembers}/{maxCrew}
 						</Nav.Link>
 						<Nav.Link href="#" disabled>
-							Passengers 0/6
+							Passengers {totalPassengers}/{maxPassengers}
 						</Nav.Link>
 						<Button
 							onClick={launchStarship}
