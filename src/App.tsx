@@ -1,36 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { GetPeopleResponse, People, Position } from "./types/people";
 import Crew from "./components/Crew";
 import Passenger from "./components/Passengers";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { STARSHIP_ID } from "./constants";
 import SearchCharacterModal from "./components/AddCharacterModal";
 import NavbarMenu from "./components/Navbar";
+import { useGetStarship } from "./hooks/useGetStarship";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
 	const [data, setData] = useState<GetPeopleResponse>();
 	const [crew, setCrew] = useState<People[]>([]);
 	const [passengers, setPassengers] = useState<People[]>([]);
-	const [maxCrew, setMaxCrew] = useState<number>(4);
-	const [maxPassengers, setMaxPassengers] = useState<number>(6);
 	const [showModal, setShowModal] = useState(false);
+	const { maxCrew, maxPassengers } = useGetStarship();
+
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengers;
-
-	useEffect(() => {
-		axios
-			.get(`/starships/${STARSHIP_ID}`)
-			.then((res) => {
-				setMaxCrew(Number(res.data.crew));
-				setMaxPassengers(Number(res.data.passengers));
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
 
 	const searchPeople = (searchText: string) => {
 		axios
@@ -100,8 +88,6 @@ function App() {
 				search={search}
 				launchStarship={launchStarship}
 				isLaunchDisabled={isLaunchDisabled}
-				maxPassengers={maxPassengers}
-				maxCrew={maxCrew}
 				totalCrewMembers={crew.length}
 				totalPassengers={passengers.length}
 			/>

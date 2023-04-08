@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { useGetStarship } from "../../hooks/useGetStarship";
 
 type Props = {
 	searchPeople: (searchText: string) => void;
@@ -10,8 +11,6 @@ type Props = {
 	search: string;
 	launchStarship: () => void;
 	isLaunchDisabled: boolean;
-	maxCrew: number;
-	maxPassengers: number;
 	totalCrewMembers: number;
 	totalPassengers: number;
 };
@@ -22,19 +21,19 @@ const NavbarMenu = ({
 	search,
 	launchStarship,
 	isLaunchDisabled,
-	maxCrew,
-	maxPassengers,
 	totalCrewMembers,
 	totalPassengers,
 }: Props) => {
+	const { maxCrew, maxPassengers } = useGetStarship();
+
 	return (
-		<Navbar bg="light" expand="lg" style={{ marginBottom: 30 }}>
+		<Navbar bg="light" expand="md" style={{ marginBottom: 30 }}>
 			<Container fluid>
 				<Navbar.Brand href="#">Starwars</Navbar.Brand>
 				<Navbar.Toggle aria-controls="navbarScroll" />
 				<Navbar.Collapse id="navbarScroll">
 					<Nav
-						className="me-auto my-2 my-lg-0"
+						className="me-auto my-2 my-md-0"
 						style={{ maxHeight: "100px" }}
 						navbarScroll
 					>
