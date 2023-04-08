@@ -1,6 +1,6 @@
 import React from "react";
 import { People, Position } from "../../types/people";
-import Character from "../character-card";
+import Character from "../CharacterCard";
 import { Col, Row } from "react-bootstrap";
 
 type CrewProps = {

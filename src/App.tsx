@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { GetPeopleResponse, People, Position } from "./types/people";
-import Crew from "./components/crew";
-import Passenger from "./components/passengers";
+import Crew from "./components/Crew";
+import Passenger from "./components/Passengers";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { STARSHIP_ID } from "./constants";
-import SearchCharacterModal from "./components/add-character-modal";
-import NavbarMenu from "./components/navbar-menu";
+import SearchCharacterModal from "./components/AddCharacterModal";
+import NavbarMenu from "./components/Navbar";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
