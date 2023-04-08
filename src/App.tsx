@@ -14,14 +14,13 @@ function App() {
 	const [passengers, setPassengers] = useState<People[]>([]);
 	const [showModal, setShowModal] = useState(false);
 	const { maxCrew, maxPassengers } = useGetStarship();
-
 	const { peopleData, enableSearch } = useGetPeople(search);
 	const isLaunchDisabled =
 		crew.length !== maxCrew || passengers.length !== maxPassengers;
 
 	const searchPeople = () => {
-		setShowModal(true);
 		enableSearch();
+		setShowModal(true);
 	};
 
 	const addToStarship = (
@@ -82,6 +81,7 @@ function App() {
 				totalCrewMembers={crew.length}
 				totalPassengers={passengers.length}
 			/>
+			{JSON.stringify(peopleData, null, 2)}
 			<AddCharacterModal
 				showModal={showModal}
 				setShowModal={setShowModal}

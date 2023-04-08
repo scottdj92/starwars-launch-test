@@ -30,13 +30,17 @@ const AddCharacterModal = ({
 							{item.name}
 							<Button
 								variant="primary"
-								onClick={() => addToStarship(item, Position.crew)}
+								onClick={() =>
+									addToStarship(item, Position.crew)
+								}
 							>
 								Add as crew
 							</Button>
 							<Button
 								variant="secondary"
-								onClick={() => addToStarship(item, Position.passenger)}
+								onClick={() =>
+									addToStarship(item, Position.passenger)
+								}
 							>
 								Add as passenger
 							</Button>

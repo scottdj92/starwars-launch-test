@@ -11,20 +11,18 @@ export function useGetPeople(searchText: string) {
 	};
 
 	useEffect(() => {
-		setInterval(() => {
-			setShouldFetch(false);
-		}, 250);
+		setShouldFetch(false);
 	}, [searchText]);
 
-	const { data, error, isLoading, mutate } = useSWR<
-		GetPeopleResponse | undefined
-	>(shouldFetch ? `/people/?search=${searchText}` : null, fetcher);
+	const { data, error, isLoading } = useSWR<GetPeopleResponse | undefined>(
+		shouldFetch ? `/people/?search=${searchText}` : null,
+		fetcher
+	);
 
 	return {
 		peopleData: data,
 		isLoading,
 		isError: error,
-		mutate,
 		enableSearch,
 	};
 }
