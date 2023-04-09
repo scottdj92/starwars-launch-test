@@ -7,6 +7,7 @@ import AddCharacterModal from "./components/AddCharacterModal";
 import NavbarMenu from "./components/Navbar";
 import { useGetStarship } from "./hooks/useGetStarship";
 import { useGetPeople } from "./hooks/useGetPeople";
+import TotalMembers from "./components/TotalMembers";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
@@ -31,7 +32,7 @@ function App() {
 			crew.find((crew) => crew.name === character.name) ||
 			passengers.find((passenger) => passenger.name === character.name)
 		) {
-			toast.warning("Already added");
+			toast.warning(`Already Added ${character.name}`);
 			return;
 		}
 
@@ -41,12 +42,14 @@ function App() {
 				return;
 			}
 			setPassengers([...passengers, character]);
+			toast.success(`Added ${character.name} to passengers`);
 		} else {
 			if (crew.length >= maxCrew) {
 				toast.warning("Max crew reached");
 				return;
 			}
 			setCrew([...crew, character]);
+			toast.success(`Added ${character.name} to crew`);
 		}
 	};
 
@@ -81,6 +84,7 @@ function App() {
 				totalCrewMembers={crew.length}
 				totalPassengers={passengers.length}
 			/>
+
 			<AddCharacterModal
 				showModal={showModal}
 				setShowModal={setShowModal}
@@ -88,6 +92,12 @@ function App() {
 				addToStarship={addToStarship}
 			/>
 			<Container>
+				<TotalMembers
+					totalCrewMembers={crew.length}
+					totalPassengers={passengers.length}
+					maxCrew={maxCrew}
+					maxPassengers={maxPassengers}
+				/>
 				<CharacterList
 					data={crew}
 					removeFromStarship={removeFromStarship}
