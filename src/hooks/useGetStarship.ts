@@ -1,6 +1,6 @@
 import { STARSHIP_ID } from "../constants";
 import { GetStarshipResponse } from "../types/starship";
-import { fetcher } from "../utils/helpers";
+import { fetcher } from "../utils/axios";
 import useSWR from "swr";
 
 export function useGetStarship() {

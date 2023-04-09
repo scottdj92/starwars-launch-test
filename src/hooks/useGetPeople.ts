@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GetPeopleResponse } from "../types/people";
-import { fetcher } from "../utils/helpers";
+import { fetcher } from "../utils/axios";
 import useSWR from "swr";
 
 export function useGetPeople(searchText: string) {
