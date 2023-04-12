@@ -4,8 +4,10 @@ import {
   Card,
   Col,
   Container,
+  Form,
   Modal,
   Row,
+  Stack,
 } from "react-bootstrap";
 import { GetPeopleResponse, People, Position } from "../../types/people";
 import { getCharacterId } from "../../utils/helpers";
@@ -15,6 +17,7 @@ type AddCharacterModalProps = {
   setShowModal: (showModal: boolean) => void;
   data: GetPeopleResponse | undefined;
   addToStarship: (character: People, position: Position) => void;
+  AllMembers: People[];
 };
 
 const AddCharacterModal = ({
@@ -22,6 +25,7 @@ const AddCharacterModal = ({
   setShowModal,
   data,
   addToStarship,
+  AllMembers,
 }: AddCharacterModalProps) => {
   return (
     <Modal
@@ -37,6 +41,12 @@ const AddCharacterModal = ({
           <Row>
             {data && data.count > 0 ? (
               data.results.map((item) => {
+                const isDisabled = AllMembers.find(
+                  (member) => member.name === item.name
+                )
+                  ? true
+                  : false;
+                console.log(isDisabled, "isDisabled");
                 return (
                   <Col
                     key={item.name}
@@ -46,27 +56,37 @@ const AddCharacterModal = ({
                     className="mb-3 border p-2"
                   >
                     <p className="mb-0">{item.name}</p>
-                    {/* <Badge pill bg="info" className="mb-2">
-                      Added already
-                    </Badge> */}
+
                     <Card.Img
                       variant="top"
                       src={`/img/${getCharacterId(item.url)}.jpg`}
                       className="mb-2 object-cover"
                     ></Card.Img>
-                    <Button
-                      variant="primary"
-                      onClick={() => addToStarship(item, Position.crew)}
-                      className="mb-1"
-                    >
-                      Add as crew
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      onClick={() => addToStarship(item, Position.passenger)}
-                    >
-                      Add as passenger
-                    </Button>
+                    {isDisabled ? (
+                      <Badge pill bg="info" className="mb-2">
+                        Added already
+                      </Badge>
+                    ) : (
+                      <p className="mb-2">Add as:</p>
+                    )}
+
+                    <Stack direction="horizontal" gap={3}>
+                      <Button
+                        variant="primary"
+                        onClick={() => addToStarship(item, Position.crew)}
+                        disabled={isDisabled}
+                      >
+                        Crew
+                      </Button>
+                      <div className="vr" />
+                      <Button
+                        variant="secondary"
+                        onClick={() => addToStarship(item, Position.passenger)}
+                        disabled={isDisabled}
+                      >
+                        Passenger
+                      </Button>
+                    </Stack>
                   </Col>
                 );
               })

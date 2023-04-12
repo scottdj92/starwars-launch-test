@@ -18,6 +18,8 @@ function App() {
   const { peopleData, enableSearch } = useGetPeople(search);
   const isLaunchDisabled =
     crew.length !== maxCrew || passengers.length !== maxPassengers;
+  const AllMembers = [...crew, ...passengers];
+  console.log(AllMembers, "AllMembers");
 
   const searchPeople = () => {
     enableSearch();
@@ -90,6 +92,7 @@ function App() {
         setShowModal={setShowModal}
         data={peopleData}
         addToStarship={addToStarship}
+        AllMembers={AllMembers}
       />
       <Container>
         <TotalMembers
