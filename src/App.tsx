@@ -19,7 +19,6 @@ function App() {
   const isLaunchDisabled =
     crew.length !== maxCrew || passengers.length !== maxPassengers;
   const AllMembers = [...crew, ...passengers];
-  console.log(AllMembers, "AllMembers");
 
   const searchPeople = () => {
     enableSearch();
