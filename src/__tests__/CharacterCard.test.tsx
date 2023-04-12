@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import CharacterCard from "../components/CharacterCard";
+import CharacterCard from "../components/CharacterCard/CharacterCard";
 import mockData from "./mockData.json";
 import { Position } from "../types/people";
 

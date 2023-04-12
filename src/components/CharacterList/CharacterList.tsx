@@ -1,6 +1,6 @@
 import { People, Position } from "../../types/people";
 import { Col, Row } from "react-bootstrap";
-import CharacterCard from "../CharacterCard";
+import CharacterCard from "../CharacterCard/CharacterCard";
 
 type CharacterListProps = {
 	data: People[];
@@ -20,7 +20,9 @@ const CharacterList = ({
 					<Col xs={6} md={4} lg={3} key={character.name}>
 						<CharacterCard
 							character={character}
-							remove={() => removeFromStarship(character, position)}
+							remove={() =>
+								removeFromStarship(character, position)
+							}
 							position={position}
 						/>
 					</Col>

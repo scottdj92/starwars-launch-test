@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import mockData from "./mockData.json";
 import { People, Position } from "../types/people";
-import CharacterList from "../components/CharacterList";
+import CharacterList from "../components/CharacterList/CharacterList";
 
 describe("Validate Character List component is rendering", () => {
 	test("render list of card components with data", async () => {

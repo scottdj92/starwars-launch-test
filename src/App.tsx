@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { People, Position } from "./types/people";
-import CharacterList from "./components/CharacterList";
+import CharacterList from "./components/CharacterList/CharacterList";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
-import AddCharacterModal from "./components/AddCharacterModal";
-import NavbarMenu from "./components/Navbar";
+import AddCharacterModal from "./components/AddCharacterModal/AddCharacterModal";
+import NavbarMenu from "./components/Navbar/Navbar";
 import { useGetStarship } from "./hooks/useGetStarship";
 import { useGetPeople } from "./hooks/useGetPeople";
-import TotalMembers from "./components/TotalMembers";
+import TotalMembers from "./components/TotalMembers/TotalMembers";
 
 function App() {
 	const [search, setSearch] = useState<string>("");
