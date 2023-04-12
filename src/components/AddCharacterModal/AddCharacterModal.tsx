@@ -4,7 +4,6 @@ import {
   Card,
   Col,
   Container,
-  Form,
   Modal,
   Row,
   Stack,
@@ -46,7 +45,6 @@ const AddCharacterModal = ({
                 )
                   ? true
                   : false;
-                console.log(isDisabled, "isDisabled");
                 return (
                   <Col
                     key={item.name}
