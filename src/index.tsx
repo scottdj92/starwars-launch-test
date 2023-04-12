@@ -9,19 +9,19 @@ import "react-toastify/dist/ReactToastify.css";
 axios.defaults.baseURL = "https://swapi.dev/api/";
 
 const root = ReactDOM.createRoot(
-	document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
-	<React.StrictMode>
-		<ToastContainer
-			autoClose={2000}
-			hideProgressBar={false}
-			newestOnTop={false}
-			closeOnClick
-			rtl={false}
-			pauseOnFocusLoss={false}
-			position="top-center"
-		/>
-		<App />
-	</React.StrictMode>
+  <React.StrictMode>
+    <ToastContainer
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss={false}
+      position="top-center"
+    />
+    <App />
+  </React.StrictMode>
 );
