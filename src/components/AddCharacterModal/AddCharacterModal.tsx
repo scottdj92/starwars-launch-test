@@ -1,15 +1,7 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Col,
-  Container,
-  Modal,
-  Row,
-  Stack,
-} from "react-bootstrap";
+import { Badge, Button, Card, Col, Stack } from "react-bootstrap";
 import { GetPeopleResponse, People, Position } from "../../types/people";
 import { getCharacterId, isMemberAdded } from "../../utils/helpers";
+import ModalBody from "./ModalBody";
 
 type AddCharacterModalProps = {
   showModal: boolean;
@@ -27,70 +19,50 @@ const AddCharacterModal = ({
   AllMembers,
 }: AddCharacterModalProps) => {
   return (
-    <Modal
-      show={showModal}
-      fullscreen={true}
-      onHide={() => setShowModal(false)}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>Add to starship</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Container>
-          <Row>
-            {data && data.count > 0 ? (
-              data.results.map((item) => {
-                const isDisabled = isMemberAdded(item, AllMembers);
-                return (
-                  <Col
-                    key={item.name}
-                    xs={6}
-                    md={3}
-                    xl={2}
-                    className="mb-3 border p-2"
-                  >
-                    <p className="mb-0">{item.name}</p>
+    <ModalBody showModal={showModal} setShowModal={setShowModal}>
+      {data && data.count > 0 ? (
+        data.results.map((item) => {
+          const isDisabled = isMemberAdded(item, AllMembers);
+          return (
+            <Col key={item.name} xs={6} md={3} className="mb-3 border p-2">
+              <p className="mb-0">{item.name}</p>
 
-                    <Card.Img
-                      variant="top"
-                      src={`/img/${getCharacterId(item.url)}.jpg`}
-                      className="mb-2 object-cover"
-                    ></Card.Img>
-                    {isDisabled ? (
-                      <Badge pill bg="info" className="mb-2">
-                        Added already
-                      </Badge>
-                    ) : (
-                      <p className="mb-2">Add as:</p>
-                    )}
+              <Card.Img
+                variant="top"
+                src={`/img/${getCharacterId(item.url)}.jpg`}
+                className="mb-2 object-cover"
+              ></Card.Img>
+              {isDisabled ? (
+                <Badge pill bg="info" className="mb-2">
+                  Added already
+                </Badge>
+              ) : (
+                <p className="mb-2">Add as:</p>
+              )}
 
-                    <Stack direction="horizontal" gap={3}>
-                      <Button
-                        variant="primary"
-                        onClick={() => addToStarship(item, Position.crew)}
-                        disabled={isDisabled}
-                      >
-                        Crew
-                      </Button>
-                      <div className="vr" />
-                      <Button
-                        variant="secondary"
-                        onClick={() => addToStarship(item, Position.passenger)}
-                        disabled={isDisabled}
-                      >
-                        Passenger
-                      </Button>
-                    </Stack>
-                  </Col>
-                );
-              })
-            ) : (
-              <p>Not found</p>
-            )}
-          </Row>
-        </Container>
-      </Modal.Body>
-    </Modal>
+              <Stack direction="horizontal" gap={1}>
+                <Button
+                  variant="primary"
+                  onClick={() => addToStarship(item, Position.crew)}
+                  disabled={isDisabled}
+                >
+                  Crew
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => addToStarship(item, Position.passenger)}
+                  disabled={isDisabled}
+                >
+                  Passenger
+                </Button>
+              </Stack>
+            </Col>
+          );
+        })
+      ) : (
+        <p>Not found</p>
+      )}
+    </ModalBody>
   );
 };
 
