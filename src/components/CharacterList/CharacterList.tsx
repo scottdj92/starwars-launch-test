@@ -26,7 +26,7 @@ const CharacterList = ({
           </Col>
         ))
       ) : (
-        <p>No {position} in the starship</p>
+        <p>No {position} in the starship. Add one by searching</p>
       )}
     </Row>
   );
