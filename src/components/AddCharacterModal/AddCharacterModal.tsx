@@ -1,4 +1,12 @@
-import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
+import {
+  Badge,
+  Button,
+  Card,
+  Col,
+  Container,
+  Modal,
+  Row,
+} from "react-bootstrap";
 import { GetPeopleResponse, People, Position } from "../../types/people";
 import { getCharacterId } from "../../utils/helpers";
 
@@ -30,8 +38,17 @@ const AddCharacterModal = ({
             {data && data.count > 0 ? (
               data.results.map((item) => {
                 return (
-                  <Col key={item.name} xs={6} md={3} xl={2} className="mb-3">
+                  <Col
+                    key={item.name}
+                    xs={6}
+                    md={3}
+                    xl={2}
+                    className="mb-3 border p-2"
+                  >
                     <p className="mb-0">{item.name}</p>
+                    {/* <Badge pill bg="info" className="mb-2">
+                      Added already
+                    </Badge> */}
                     <Card.Img
                       variant="top"
                       src={`/img/${getCharacterId(item.url)}.jpg`}
@@ -40,6 +57,7 @@ const AddCharacterModal = ({
                     <Button
                       variant="primary"
                       onClick={() => addToStarship(item, Position.crew)}
+                      className="mb-1"
                     >
                       Add as crew
                     </Button>
