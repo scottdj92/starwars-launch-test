@@ -9,7 +9,7 @@ import {
   Stack,
 } from "react-bootstrap";
 import { GetPeopleResponse, People, Position } from "../../types/people";
-import { getCharacterId } from "../../utils/helpers";
+import { getCharacterId, isMemberAdded } from "../../utils/helpers";
 
 type AddCharacterModalProps = {
   showModal: boolean;
@@ -40,11 +40,7 @@ const AddCharacterModal = ({
           <Row>
             {data && data.count > 0 ? (
               data.results.map((item) => {
-                const isDisabled = AllMembers.find(
-                  (member) => member.name === item.name
-                )
-                  ? true
-                  : false;
+                const isDisabled = isMemberAdded(item, AllMembers);
                 return (
                   <Col
                     key={item.name}
